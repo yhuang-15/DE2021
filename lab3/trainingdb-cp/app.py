@@ -33,9 +33,6 @@ def read_data(table_name):
     df = db_util.read_data_records(table_name)
     df = df.drop(columns=['id'])
     resp = Response(df.to_json(orient='records'), status=200, mimetype='application/json')
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Access-Control-Allow-Methods'] = 'POST'
-    resp.headers['Access-Control-Max-Age'] = '1000'
     return resp
 
 

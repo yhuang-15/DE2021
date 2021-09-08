@@ -1,5 +1,5 @@
 # Using python 3.7 full image as the base image
-FROM python:3.7.7-buster
+FROM python:3.7.7-slim
 # Defining working directory and copy the requirements file. We will run the commands inside this new directory
 WORKDIR /usr/src/myapp
 # Copy requirements.txt  to the working directory
@@ -11,7 +11,7 @@ COPY . .
 # Expose the port that our app runs in
 EXPOSE 5000
 # Enviroment Variables
-ENV DB_LOC  /usr/src/myapp/
+ENV DB_URL  sqlite:///features.db
 #Add some meta data if necessary
 LABEL training.db.api="0.0.1-beta"
 # Run our App

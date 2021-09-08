@@ -9,8 +9,12 @@ from sqlalchemy.ext.declarative import declarative_base
 class DBUtil:
 
     def __init__(self):
-        db_loc = os.environ['DB_LOC']
-        self.engine = db.create_engine('sqlite:///' + db_loc + 'trainingdata.db', echo=True)
+        # The database URL is provided as an env. variable
+        if 'DB_URL' in os.environ:
+            db_url = os.environ['DB_URL']
+        else:
+            db_url = 'sqlite:///features.db'
+        self.engine = db.create_engine(db_url, echo=True)
         self._reflect()
 
     def create_tb(self, table_name, column_names):

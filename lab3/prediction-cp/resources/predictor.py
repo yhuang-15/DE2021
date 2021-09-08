@@ -17,5 +17,5 @@ def predict(dataset):
         dic = val_set2.to_dict(orient='records')
         return json.dumps(dic, indent=4, sort_keys=False)
     else:
-        return json.dumps({'message': 'A model cannot be found.'},
+        return json.dumps({'message': 'MODEL_REPO cannot be found.'},
                           sort_keys=False, indent=4)

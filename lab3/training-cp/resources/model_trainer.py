@@ -37,5 +37,5 @@ def train(dataset):
         return json.dumps({'message': 'The model was saved locally.'},
                           sort_keys=False, indent=4), 200
 
-    print("Saved the model to disk")
+    print("Saved the model to disk: " + model_repo)
     return json.dumps(text_out, sort_keys=False, indent=4)

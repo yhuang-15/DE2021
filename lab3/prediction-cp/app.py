@@ -7,20 +7,13 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 
 
-@app.route('/prediction-cp/<model>', methods=['POST'])
-def predict_perf(model):
+@app.route('/prediction-cp/results', methods=['POST'])
+def predict_perf():
     content = request.get_json()
     df = pd.read_json(json.dumps(content), orient='records')
-    if model == "mlp":
-        js = predictor.predict(df)
-        resp = Response(js, status=200, mimetype='application/json')
-        resp.headers['Access-Control-Allow-Origin'] = '*'
-        resp.headers['Access-Control-Allow-Methods'] = 'POST'
-        resp.headers['Access-Control-Max-Age'] = '1000'
-        return resp
-    else:
-        return json.dumps({'message': 'the given model is not supported dropped'},
-                          sort_keys=False, indent=4), 400
+    js = predictor.predict(df)
+    resp = Response(js, status=200, mimetype='application/json')
+    return resp
 
 
 app.run(host='0.0.0.0', port=5000)

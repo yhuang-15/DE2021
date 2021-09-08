@@ -10,8 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 # Expose the port that our app runs in
 EXPOSE 5000
-# Enviroment Variables
-ENV DB_URL  sqlite:///features.db
+# Environment  Variables
+ENV DB_URL=sqlite:///features.db
 #Add some meta data if necessary
 LABEL training.db.api="0.0.1-beta"
 # Run our App

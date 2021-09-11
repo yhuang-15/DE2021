@@ -9,6 +9,7 @@ app.config["DEBUG"] = True
 
 @app.route('/prediction-cp/results', methods=['POST'])
 def predict_perf():
+    # receive the prediction request data as the message body
     content = request.get_json()
     df = pd.read_json(json.dumps(content), orient='records')
     js = predictor.predict(df)

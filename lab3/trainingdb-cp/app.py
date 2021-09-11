@@ -9,6 +9,7 @@ db_util = DBUtil()
 
 @app.route('/training-db/<table_name>', methods=['POST'])
 def create_table(table_name):
+    # get the payload or body
     req_data = request.get_json()
     columns = req_data['columns']
     db_util.create_tb(table_name, columns)

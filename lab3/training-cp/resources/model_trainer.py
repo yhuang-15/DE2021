@@ -27,15 +27,14 @@ def train(dataset):
         "accuracy:": scores[1],
         "loss": scores[0],
     }
-    # Saving model in a given location (provided as an env. variable
+    # Saving model in a given location provided as an env. variable
     model_repo = os.environ['MODEL_REPO']
     if model_repo:
         file_path = os.path.join(model_repo, "model.h5")
         model.save(file_path)
+        print("Saved the model to the location : " + model_repo)
+        return json.dumps(text_out, sort_keys=False, indent=4), 200
     else:
         model.save("model.h5")
         return json.dumps({'message': 'The model was saved locally.'},
                           sort_keys=False, indent=4), 200
-
-    print("Saved the model to disk: " + model_repo)
-    return json.dumps(text_out, sort_keys=False, indent=4)

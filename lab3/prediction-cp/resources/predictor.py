@@ -1,6 +1,6 @@
-import json
 import os
 
+from flask import jsonify
 from keras.models import load_model
 
 
@@ -15,7 +15,6 @@ def predict(dataset):
         y_classes = result.argmax(axis=-1)
         val_set2['class'] = y_classes.tolist()
         dic = val_set2.to_dict(orient='records')
-        return json.dumps(dic, indent=4, sort_keys=False)
+        return jsonify(dic), 200
     else:
-        return json.dumps({'message': 'MODEL_REPO cannot be found.'},
-                          sort_keys=False, indent=4)
+        return jsonify({'message': 'MODEL_REPO cannot be found.'}), 200

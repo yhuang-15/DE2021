@@ -1,8 +1,8 @@
 # MLP for Pima Indians Dataset saved to single file
 # see https://machinelearningmastery.com/save-load-keras-deep-learning-models/
-import json
 import os
 
+from flask import jsonify
 from keras.layers import Dense
 from keras.models import Sequential
 
@@ -33,8 +33,7 @@ def train(dataset):
         file_path = os.path.join(model_repo, "model.h5")
         model.save(file_path)
         print("Saved the model to the location : " + model_repo)
-        return json.dumps(text_out, sort_keys=False, indent=4), 200
+        return jsonify(text_out), 200
     else:
         model.save("model.h5")
-        return json.dumps({'message': 'The model was saved locally.'},
-                          sort_keys=False, indent=4), 200
+        return jsonify({'message': 'The model was saved locally.'}), 200

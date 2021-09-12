@@ -4,6 +4,7 @@ import pandas as pd
 import requests
 from flask import Flask, Response
 
+from flask import jsonify
 from resources import model_trainer
 
 app = Flask(__name__)
@@ -17,9 +18,7 @@ def train_models():
     r = requests.get(db_api)
     j = r.json()
     df = pd.DataFrame.from_dict(j)
-    js = model_trainer.train(df.values)
-    from flask import jsonify
-    resp = Response(jsonify(js), status=200, mimetype='application/json')
+    resp = model_trainer.train(df.values)
     return resp
 
 

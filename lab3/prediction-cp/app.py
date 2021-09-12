@@ -12,8 +12,7 @@ def predict_perf():
     # receive the prediction request data as the message body
     content = request.get_json()
     df = pd.read_json(json.dumps(content), orient='records')
-    js = predictor.predict(df)
-    resp = Response(jsonify(js), status=200, mimetype='application/json')
+    resp = predictor.predict(df)
     return resp
 
 

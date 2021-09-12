@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Flask, json, request, Response
+from flask import Flask, json, request, Response, jsonify
 
 from resources import predictor
 
@@ -13,7 +13,7 @@ def predict_perf():
     content = request.get_json()
     df = pd.read_json(json.dumps(content), orient='records')
     js = predictor.predict(df)
-    resp = Response(js, status=200, mimetype='application/json')
+    resp = Response(jsonify(js), status=200, mimetype='application/json')
     return resp
 
 

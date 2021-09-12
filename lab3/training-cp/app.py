@@ -18,7 +18,8 @@ def train_models():
     j = r.json()
     df = pd.DataFrame.from_dict(j)
     js = model_trainer.train(df.values)
-    resp = Response(js, status=200, mimetype='application/json')
+    from flask import jsonify
+    resp = Response(jsonify(js), status=200, mimetype='application/json')
     return resp
 
 

@@ -1,5 +1,6 @@
 # MLP for Pima Indians Dataset saved to single file
 # see https://machinelearningmastery.com/save-load-keras-deep-learning-models/
+import logging
 import os
 
 from flask import jsonify
@@ -32,7 +33,7 @@ def train(dataset):
     if model_repo:
         file_path = os.path.join(model_repo, "model.h5")
         model.save(file_path)
-        print("Saved the model to the location : " + model_repo)
+        logging.info("Saved the model to the location : " + model_repo)
         return jsonify(text_out), 200
     else:
         model.save("model.h5")

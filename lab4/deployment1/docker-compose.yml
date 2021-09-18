@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  trainingdb_service:
+    build:
+      context: ./../../lab3/trainingdb-cp
+    environment:
+      - DB_URL=sqlite:///features.db
+    depends_on:
+      - pgdb_server
+    ports:
+      - "5000:5000"
+  training_service:
+    build:
+      context: ./../../lab3/training-cp
+    depends_on:
+      - trainingdb_service
+    ports:
+      - "5001:5000"
+    volumes:
+      - /home/indika_kuma/models:/usr/src/myapp/models
+  prediction_service:
+    build:
+      context: ./../../lab3/prediction-cp
+    depends_on:
+      - training_service
+    ports:
+      - "5002:5000"

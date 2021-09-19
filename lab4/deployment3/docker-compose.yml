@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  trainingdb_service:
+    image: indikakumara/trainingdbapi:0.0.1
+    environment:
+      - DB_URL=sqlite:///features.db
+    networks:
+      - training-pipeline
+    ports:
+      - "5000:5000"
+  training_service:
+    image: indikakumara/trainapi:0.0.1
+    depends_on:
+      - trainingdb_service
+    environment:
+      - TRAININGDB_API=http://trainingdb_service:5000/training-db/diabetes
+    networks:
+      - training-pipeline
+    ports:
+      - "5001:5000"
+    volumes:
+      - "model-repo:/usr/src/myapp/models"
+  prediction_service:
+    image: indikakumara/predictionapi:0.0.1
+    depends_on:
+      - training_service
+    networks:
+      - prediction-pipeline
+    ports:
+      - "5002:5000"
+    volumes:
+      - "model-repo:/usr/src/myapp/models"
+networks:
+  training-pipeline:
+  prediction-pipeline:
+
+volumes:
+  model-repo:

@@ -4,6 +4,7 @@ import logging
 import os
 
 from flask import jsonify
+from google.cloud import storage
 from keras.layers import Dense
 from keras.models import Sequential
 
@@ -29,11 +30,19 @@ def train(dataset):
         "loss": scores[0],
     }
     # Saving model in a given location provided as an env. variable
-    model_repo = os.environ['MODEL_REPO']
+    project_id = os.environ.get('PROJECT_ID', 'Specified environment variable is not set.')
+    model_repo = os.environ.get('MODEL_REPO', 'Specified environment variable is not set.')
+    model_file_name = 'model.h5'
     if model_repo:
-        file_path = os.path.join(model_repo, "model.h5")
-        model.save(file_path)
-        logging.info("Saved the model to the location : " + model_repo)
+        model.save(model_file_name)
+        # Save to GCS
+        client = storage.Client(project=project_id)
+        bucket = client.get_bucket(model_repo)
+        blob = bucket.blob()
+        blob.upload_from_filename(model_file_name)
+        # Do clean up
+        os.remove(model_file_name)
+        logging.info("Saved the model to GCP bucket : " + model_repo)
         return jsonify(text_out), 200
     else:
         model.save("model.h5")

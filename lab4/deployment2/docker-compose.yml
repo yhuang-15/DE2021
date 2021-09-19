@@ -14,6 +14,8 @@ services:
       context: ./../../lab3/training-cp
     depends_on:
       - trainingdb_service
+    environment:
+      - TRAININGDB_API=http://trainingdb_service:5000/training-db/diabetes
     networks:
       - training-pipeline
     ports:

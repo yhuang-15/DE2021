@@ -15,10 +15,9 @@ class DiabetesPredictor:
         model_repo = os.environ.get('MODEL_REPO', 'Specified environment variable is not set.')
         client = storage.Client(project=project_id)
         bucket = client.get_bucket(model_repo)
-        model_file_name = 'model.h5'
-        blob = bucket.blob(model_file_name)
-        blob.download_to_filename(model_file_name)
-        self.model = load_model(model_file_name)
+        blob = bucket.blob('model.h5')
+        blob.download_to_filename('local_model.h5')
+        self.model = load_model('local_model.h5')
 
     # make prediction
     def predict(self, dataset):

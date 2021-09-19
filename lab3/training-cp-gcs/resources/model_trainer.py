@@ -32,16 +32,17 @@ def train(dataset):
     # Saving model in a given location provided as an env. variable
     project_id = os.environ.get('PROJECT_ID', 'Specified environment variable is not set.')
     model_repo = os.environ.get('MODEL_REPO', 'Specified environment variable is not set.')
-    model_file_name = 'model.h5'
     if model_repo:
-        model.save(model_file_name)
-        # Save to GCS
+        # Save the model localy
+        model.save('local_model.h5')
+        # Save to GCS as model.h5
         client = storage.Client(project=project_id)
         bucket = client.get_bucket(model_repo)
-        blob = bucket.blob()
-        blob.upload_from_filename(model_file_name)
-        # Do clean up
-        os.remove(model_file_name)
+        blob = bucket.blob('model.h5')
+        # Upload the locally saved model
+        blob.upload_from_filename('local_model.h5')
+        # Clean up
+        os.remove('local_model.h5')
         logging.info("Saved the model to GCP bucket : " + model_repo)
         return jsonify(text_out), 200
     else:

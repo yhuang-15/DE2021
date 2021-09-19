@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  trainingdb_service:
+    build:
+      context: ./../../lab3/trainingdb-cp
+    environment:
+      - DB_URL=sqlite:///features.db
+    networks:
+      - training-pipeline
+    ports:
+      - "5000:5000"
+  training_service:
+    build:
+      context: ./../../lab3/training-cp
+    depends_on:
+      - trainingdb_service
+    networks:
+      - training-pipeline
+    ports:
+      - "5001:5000"
+    volumes:
+      - "model-repo:/usr/src/myapp/models"
+  prediction_service:
+    build:
+      context: ./../../lab3/prediction-cp
+    depends_on:
+      - training_service
+    networks:
+      - prediction-pipeline
+    ports:
+      - "5002:5000"
+networks:
+  training-pipeline:
+  prediction-pipeline:
+
+volumes:
+  model-repo:

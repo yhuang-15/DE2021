@@ -9,8 +9,7 @@ services:
     ports:
       - "5000:5000"
   training_service:
-    build:
-      context: ./../../lab3/training-cp-gcs
+    image: indikakumara/trainapi-gcs:0.0.1
     depends_on:
       - trainingdb_service
     environment:
@@ -22,8 +21,7 @@ services:
     ports:
       - "5001:5000"
   prediction_service:
-    build:
-      context: ./../../lab3/prediction-cp-gcs
+    image: indikakumara/predictionapi-gcs:0.0.1
     depends_on:
       - training_service
     environment:

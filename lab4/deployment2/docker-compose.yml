@@ -31,6 +31,8 @@ services:
       - prediction-pipeline
     ports:
       - "5002:5000"
+    volumes:
+      - "model-repo:/usr/src/myapp/models"
 networks:
   training-pipeline:
   prediction-pipeline:

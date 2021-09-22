@@ -1,5 +1,5 @@
-# Using python 3.7 slim image as the base image
-FROM python:3.7.7-slim
+# Using python 3.7 slim-buster as the base image
+FROM FROM python:3.7-slim-buster
 # Defining working directory and copy the requirements file. We will run the commands inside this new directory
 WORKDIR /usr/src/myapp
 # Copy requirements.txt  to the working directory

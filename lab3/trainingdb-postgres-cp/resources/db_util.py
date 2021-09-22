@@ -4,6 +4,7 @@ import pandas as pd
 import sqlalchemy as db
 from sqlalchemy import Column, Float, Table, Integer
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy_utils import database_exists, create_database
 
 
 class DBUtil:
@@ -16,9 +17,9 @@ class DBUtil:
             db_url = 'sqlite:///features.db'
         # create the database
         self.engine = db.create_engine(db_url, echo=True)
-		if not database_exists(engine.url):
-            create_database(engine.url)
-        print(database_exists(engine.url))
+        if not database_exists(self.engine.url):
+            create_database(self.engine.url)
+        print(database_exists(self.engine.url))
         self._reflect()
 
     def create_tb(self, table_name, column_names):

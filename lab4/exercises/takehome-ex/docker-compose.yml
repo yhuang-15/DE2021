@@ -13,6 +13,7 @@ services:
     environment:
       - bugPredictorServer=http://tosca_smell_predictor:8080/
       - graphdb=http://graph_db:7200
+      - reasonerServer=http://semantic_reasoner:8080/
     ports:
       - "8080:8080"
   tosca_smell_predictor:

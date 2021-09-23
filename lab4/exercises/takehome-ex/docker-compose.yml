@@ -19,5 +19,7 @@ services:
       context: ./tosca-smell-predictor
     depends_on:
       - semantic_reasoner
+    environment:
+      - graphdb=http://graph_db:7200
     ports:
       - "8081:8080"

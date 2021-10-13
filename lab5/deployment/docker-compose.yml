@@ -6,8 +6,6 @@ services:
       context: ./jupyterlab
     ports:
       - 8888:8888
-    volumes:
-      - shared-workspace:/opt/workspace
   spark:
     image: docker.io/bitnami/spark:3.1.2
     environment:

@@ -1,5 +1,5 @@
 FROM jupyter/base-notebook:hub-1.4.2
-
+USER root
 RUN apt-get update -y && \
     apt-get install -y python3-pip python3-dev && \
     pip3 install --upgrade pip && \

@@ -1,7 +1,7 @@
 FROM bitnami/jupyterhub:1.4.2
 USER root
 RUN apt-get update -y && \
-    apt-get install openjdk-11-jdk
+    apt-get -y install openjdk-11-jdk
 USER 1001
 RUN pip3 install --upgrade pip && \
     pip3 install pyspark==3.1.2

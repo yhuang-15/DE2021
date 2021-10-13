@@ -1,12 +1,14 @@
 version: '3.8'
 
 services:
-  jupyterlab:
-    image: jupyter/pyspark-notebook:java-11.0.11
+  spark-driver:
+    image: jupyter/all-spark-notebook:spark-3.1.2
     ports:
       - "8888:8888"
       - "4040:4040"
     command: ["--NotebookApp.token",'']
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
     volumes:
       - ./notebooks:/home/jovyan/work/notebooks/
   spark-master:

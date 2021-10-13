@@ -5,7 +5,7 @@ services:
     build:
       context: ./jupyterlab
     ports:
-      - 8888:8888
+      - 8888:8081
   spark:
     image: docker.io/bitnami/spark:3.1.2
     environment:

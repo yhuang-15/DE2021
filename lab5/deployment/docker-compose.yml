@@ -1,18 +1,18 @@
 version: '3.8'
 
 services:
-  spark-driver:
+  spark-driver-app:
     image: jupyter/all-spark-notebook:spark-3.1.2
     ports:
       - "8888:8888"
       - "4040:4040"
-    command: ["--NotebookApp.token",'']
     environment:
       - JUPYTER_ENABLE_LAB=yes
     volumes:
       - ./notebooks:/home/jovyan/work/notebooks/
   spark-master:
     image: docker.io/bitnami/spark:3.1.2
+    container_name: spark-master
     environment:
       - SPARK_MODE=master
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
@@ -27,6 +27,7 @@ services:
       - "7077:7077"
   spark-worker-1:
     image: docker.io/bitnami/spark:3.1.2
+    container_name: spark-worker-1
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
@@ -41,6 +42,7 @@ services:
      - "8081:8081"
   spark-worker-2:
     image: docker.io/bitnami/spark:3.1.2
+    container_name: spark-worker-2
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077

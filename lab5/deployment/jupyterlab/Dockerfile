@@ -3,7 +3,8 @@ USER root
 RUN apt-get update -y && \
     apt-get -y install openjdk-11-jdk
 
-RUN npm install -g configurable-http-proxy
+RUN apt-get install npm -y && \
+    npm install -g configurable-http-proxy
 USER 1001
 RUN pip3 install --upgrade pip && \
     pip3 install pyspark==3.1.2

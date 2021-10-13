@@ -7,7 +7,7 @@ services:
     user: root
     ports:
       - "8888:8081"
-    command: ["ip", jupyterlab]
+    command: ["--ip",jupyterlab]
   spark-master:
     image: docker.io/bitnami/spark:3.1.2
     environment:

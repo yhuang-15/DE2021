@@ -39,7 +39,7 @@ services:
       - "8080:8080"
       - "7077:7077"
     volumes:
-      - spark-data:/opt/shareddatadir
+      - spark-data:/home/jovyan/data
   spark-worker-1:
     build: ./spark-bitnami-python3.9
     container_name: spark-worker-1
@@ -55,7 +55,7 @@ services:
     ports:
      - "8081:8081"
     volumes:
-      - spark-data:/opt/shareddatadir
+      - spark-data:/home/jovyan/data
   spark-worker-2:
     build: ./spark-bitnami-python3.9
     container_name: spark-worker-2
@@ -71,4 +71,4 @@ services:
     ports:
       - "8082:8081"
     volumes:
-      - spark-data:/opt/shareddatadir
+      - spark-data:/home/jovyan/data

@@ -6,6 +6,11 @@ volumes:
       type: none
       device: /home/indika_kuma/data
       o: bind
+  notebooks:
+    driver_opts:
+      type: none
+      device: /home/indika_kuma/notebooks
+      o: bind
 services:
   spark-driver-app:
     image: jupyter/all-spark-notebook:spark-3.1.2
@@ -17,8 +22,8 @@ services:
     environment:
       - JUPYTER_ENABLE_LAB=yes
     volumes:
-      - ./notebooks:/home/jovyan/work/notebooks/
-      - spark-data:/opt/shareddatadir
+      - notebooks:/home/jovyan/notebooks/
+      - spark-data:/home/jovyan/data
   spark-master:
     build: ./spark-bitnami-python3.9
     container_name: spark-master

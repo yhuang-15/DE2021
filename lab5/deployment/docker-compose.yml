@@ -1,11 +1,12 @@
 version: '3.8'
 
-services:
+volumes:
   spark-data:
     driver_opts:
       type: none
       device: /home/indika_kuma/data
       o: bind
+services:
   spark-driver-app:
     image: jupyter/all-spark-notebook:spark-3.1.2
     container_name: spark-driver-app

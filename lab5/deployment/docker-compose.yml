@@ -1,6 +1,11 @@
 version: '3.8'
 
 services:
+  spark-data:
+    driver_opts:
+      type: none
+      device: /home/indika_kuma/data
+      o: bind
   spark-driver-app:
     image: jupyter/all-spark-notebook:spark-3.1.2
     container_name: spark-driver-app
@@ -12,6 +17,7 @@ services:
       - JUPYTER_ENABLE_LAB=yes
     volumes:
       - ./notebooks:/home/jovyan/work/notebooks/
+      - spark-data:/opt/shareddatadir
   spark-master:
     build: ./spark-bitnami-python3.9
     container_name: spark-master
@@ -26,6 +32,8 @@ services:
     ports:
       - "8080:8080"
       - "7077:7077"
+    volumes:
+      - spark-data:/opt/shareddatadir
   spark-worker-1:
     build: ./spark-bitnami-python3.9
     container_name: spark-worker-1
@@ -40,6 +48,8 @@ services:
       - SPARK_SSL_ENABLED=no
     ports:
      - "8081:8081"
+    volumes:
+      - spark-data:/opt/shareddatadir
   spark-worker-2:
     build: ./spark-bitnami-python3.9
     container_name: spark-worker-2
@@ -54,3 +64,5 @@ services:
       - SPARK_SSL_ENABLED=no
     ports:
       - "8082:8081"
+    volumes:
+      - spark-data:/opt/shareddatadir

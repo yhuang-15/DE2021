@@ -27,6 +27,7 @@ services:
   spark-master:
     build: ./spark-bitnami-python3.9
     container_name: spark-master
+    user: root
     environment:
       - SPARK_MODE=master
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
@@ -43,6 +44,7 @@ services:
   spark-worker-1:
     build: ./spark-bitnami-python3.9
     container_name: spark-worker-1
+    user: root
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
@@ -59,6 +61,7 @@ services:
   spark-worker-2:
     build: ./spark-bitnami-python3.9
     container_name: spark-worker-2
+    user: root
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077

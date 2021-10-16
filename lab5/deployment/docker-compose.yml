@@ -15,15 +15,15 @@ services:
   spark-driver-app:
     image: jupyter/all-spark-notebook:spark-3.1.2
     container_name: spark-driver-app
+    user: root
     ports:
       - "8888:8888"
       - "4040:4040"
     environment:
       - JUPYTER_ENABLE_LAB=yes
-      - NB_USER=indika_kuma # jovyan is the default user of the image all-spark-notebook:spark-3.1.2.
     volumes:
-      - notebooks:/home/indika_kuma/notebooks/
-      - spark-data:/home/indika_kuma/data
+      - notebooks:/home/jovyan/notebooks/  # jovyan is the default user of the image all-spark-notebook:spark-3.1.2.
+      - spark-data:/home/jovyan/data
   spark-master:
     build: ./spark-bitnami-python3.9
     container_name: spark-master
@@ -40,7 +40,7 @@ services:
       - "8080:8080"
       - "7077:7077"
     volumes:
-      - spark-data:/home/indika_kuma/data
+      - spark-data:/home/jovyan/data
   spark-worker-1:
     build: ./spark-bitnami-python3.9
     container_name: spark-worker-1
@@ -57,7 +57,7 @@ services:
     ports:
      - "8081:8081"
     volumes:
-      - spark-data:/home/indika_kuma/data
+      - spark-data:/home/jovyan/data
   spark-worker-2:
     build: ./spark-bitnami-python3.9
     container_name: spark-worker-2
@@ -74,4 +74,4 @@ services:
     ports:
       - "8082:8081"
     volumes:
-      - spark-data:/home/indika_kuma/data
+      - spark-data:/home/jovyan/data

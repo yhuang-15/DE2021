@@ -22,7 +22,7 @@ services:
     environment:
       - JUPYTER_ENABLE_LAB=yes
     volumes:
-      - notebooks:/home/jovyan/notebooks/
+      - notebooks:/home/jovyan/notebooks/  # jovyan is the default user of the image all-spark-notebook:spark-3.1.2
       - spark-data:/home/jovyan/data
   spark-master:
     build: ./spark-bitnami-python3.9

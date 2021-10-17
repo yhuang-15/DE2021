@@ -45,6 +45,8 @@ services:
     build: ./spark-bitnami-python3.9
     container_name: spark-worker-1
     user: root
+    depends_on:
+      - spark-master
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
@@ -62,6 +64,8 @@ services:
     build: ./spark-bitnami-python3.9
     container_name: spark-worker-2
     user: root
+    depends_on:
+      - spark-master
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077

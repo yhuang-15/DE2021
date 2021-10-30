@@ -1,12 +1,10 @@
 from kafka import KafkaConsumer, TopicPartition
 
-size = 1000000
-
 
 def read_from_topic(kafka_consumer, topic):
-    kafka_consumer.subscribe([topic])
+    kafka_consumer.subscribe(topics=[topic])
     for msg in kafka_consumer:
-        print(msg)
+        print(msg.value.decode("utf-8"))
 
 
 def read_from_topic_with_partition(kafka_consumer, topic1, topic2):
@@ -25,5 +23,8 @@ def read_from_topic_with_partition_offset(kafka_consumer, topic):
 
 
 if __name__ == '__main__':
-    consumer = KafkaConsumer(bootstrap_servers='34.68.84.17:9092')
-    read_from_topic(consumer, 'topic')
+    consumer = KafkaConsumer(bootstrap_servers='104.198.60.211:9092',
+                             auto_offset_reset='earliest',
+                             consumer_timeout_ms=1000)
+    print(consumer.topics())
+    read_from_topic_with_partition(consumer, 'word')

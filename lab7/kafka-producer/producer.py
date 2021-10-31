@@ -21,7 +21,7 @@ def kafka_python_producer_async(producer, msg, topic):
 
 
 if __name__ == '__main__':
-    producer = KafkaProducer(bootstrap_servers='104.198.60.211:9092')
+    producer = KafkaProducer(bootstrap_servers='35.188.19.170:9092')
     with open('C:\DE20201\DE2021\lab7\data\wordcount.txt') as f:
         lines = f.readlines()
 

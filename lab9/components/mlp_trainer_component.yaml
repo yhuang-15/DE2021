@@ -7,7 +7,7 @@ inputs:
   - {name: feature_path, type: Data}
 
 outputs:
-  - {name: output_path, type: Data}
+  - {name: metrics_path, type: Data}
 
 implementation:
   container:
@@ -20,5 +20,5 @@ implementation:
       --project_id, {inputValue: project_id},
       --feature_path, {inputPath: feature_path},
       --model_repo, {inputValue: model_repo},
-      --output_path, {outputPath: output_path}
+      --output_path, {outputPath: metrics_path}
     ]

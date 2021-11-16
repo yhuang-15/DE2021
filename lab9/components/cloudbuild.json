@@ -5,7 +5,7 @@
       "args": [
         "build",
         "-t",
-        "gcr.io/de2021/dataingestor:latest",
+        "gcr.io/de2021-324520/dataingestor:latest",
         "./data_ingestor"
        ]
    },
@@ -14,7 +14,7 @@
       "args": [
         "build",
         "-t",
-        "gcr.io/de2021/mlptrainer:latest",
+        "gcr.io/de2021-324520/mlptrainer:latest",
         "./mlp_trainer"
        ]
    },
@@ -22,14 +22,14 @@
        "name": "gcr.io/cloud-builders/docker",
        "args": [
            "push",
-           "gcr.io/de2021/dataingestor:latest"
+           "gcr.io/de2021-324520/dataingestor:latest"
         ]
    },
    {
        "name": "gcr.io/cloud-builders/docker",
        "args": [
            "push",
-           "gcr.io/de2021/mlptrainer:latest"
+           "gcr.io/de2021-324520/mlptrainer:latest"
         ]
    }
    ]

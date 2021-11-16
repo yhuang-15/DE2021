@@ -1,0 +1,24 @@
+name: extract features
+description: Calculate features for our machine learning model
+
+inputs:
+  - {name: project_id, type: String}
+  - {name: model_repo, type: String}
+  - {name: feature_path, type: String}
+
+outputs:
+  - {name: output_path, type: String}
+
+implementation:
+  container:
+    image: gcr.io/de2021/mlptrainer:latest
+    command: [
+      python3,
+      component.py,
+    ]
+    args: [
+      --project_id, {inputValue: project_id},
+      --feature_path, {inputPath: feature_path},
+      --model_repo, {inputValue: model_repo},
+      --output_path, {outputPath: output_path}
+    ]

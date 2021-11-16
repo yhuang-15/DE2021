@@ -1,0 +1,24 @@
+name: Download Data
+description: Download the data from a GCP bucket and save into a local file
+
+inputs:
+  - {name: project_id, type: String}
+  - {name: bucket, type: String}
+  - {name: file_name, type: String}
+
+outputs:
+  - {name: output_path, type: String}
+
+implementation:
+  container:
+    image: gcr.io/de2021/dataingestor:latest
+    # command is a list of strings (command-line arguments).
+    command: [
+      python3,
+      # Path of the program inside the container
+      component.py,
+      --project_id, {inputValue: project_id},
+      --bucket, {inputValue: bucket},
+      --file_name, {inputValue: file_name},
+      --output_path, {outputPath: output_path}
+    ]

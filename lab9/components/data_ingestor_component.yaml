@@ -7,7 +7,7 @@ inputs:
   - {name: file_name, type: String}
 
 outputs:
-  - {name: output_path, type: String}
+  - {name: output_path, type: Data}
 
 implementation:
   container:
@@ -16,7 +16,9 @@ implementation:
     command: [
       python3,
       # Path of the program inside the container
-      component.py,
+      component.py
+    ]
+    args: [
       --project_id, {inputValue: project_id},
       --bucket, {inputValue: bucket},
       --file_name, {inputValue: file_name},

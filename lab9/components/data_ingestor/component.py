@@ -3,6 +3,7 @@ import logging
 import sys
 
 from google.cloud import storage
+from pathlib import Path
 
 
 def download_data(project_id, bucket, file_name, output_path):
@@ -10,6 +11,9 @@ def download_data(project_id, bucket, file_name, output_path):
     client = storage.Client(project=project_id)
     bucket = client.get_bucket(bucket)
     blob = bucket.blob(file_name)
+    # Creating the directory where the output file is created (the directory
+    # may or may not exist).
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     blob.download_to_filename(output_path)
     logging.info('Downloaded Data!')
 

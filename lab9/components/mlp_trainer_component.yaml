@@ -4,10 +4,10 @@ description: Train MLP Model
 inputs:
   - {name: project_id, type: String}
   - {name: model_repo, type: String}
-  - {name: feature_path, type: String}
+  - {name: feature_path, type: Data}
 
 outputs:
-  - {name: output_path, type: String}
+  - {name: output_path, type: Data}
 
 implementation:
   container:

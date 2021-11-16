@@ -7,7 +7,7 @@ import sys
 from google.cloud import storage
 from keras.layers import Dense
 from keras.models import Sequential
-
+from pathlib import Path
 
 def train_mlp(project_id, feature_path, model_repo, output_path):
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
@@ -48,6 +48,9 @@ def train_mlp(project_id, feature_path, model_repo, output_path):
     # Clean up
     os.remove(local_file)
     print("Saved the model to GCP bucket : " + model_repo)
+    # Creating the directory where the output file is created (the directory
+    # may or may not exist).
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, 'w') as outfile:
         json.dump(metrics, outfile)
 

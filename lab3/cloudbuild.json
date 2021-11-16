@@ -6,7 +6,7 @@
         "build",
         "-t",
         "gcr.io/de2021/trainingdbapi:latest",
-        "./trainingdb-cp"
+        "./lab3/trainingdb-cp"
        ]
    },
    {
@@ -15,7 +15,7 @@
         "build",
         "-t",
         "gcr.io/de2021/trainingcpapi:latest",
-        "./training-cp"
+        "./lab3/training-cp"
        ]
    },
    {
@@ -24,7 +24,7 @@
         "build",
         "-t",
         "gcr.io/de2021/predictioncpapi:latest",
-        "./prediction-cp"
+        "./lab3/prediction-cp"
        ]
    },
    {

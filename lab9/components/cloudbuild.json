@@ -6,7 +6,7 @@
         "build",
         "-t",
         "gcr.io/de2021-324520/dataingestor:latest",
-        "./data_ingestor"
+        "./lab9/components/data_ingestor"
        ]
    },
    {
@@ -15,7 +15,7 @@
         "build",
         "-t",
         "gcr.io/de2021-324520/mlptrainer:latest",
-        "./mlp_trainer"
+        "./lab9/components/mlp_trainer"
        ]
    },
    {

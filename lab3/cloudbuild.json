@@ -5,7 +5,7 @@
       "args": [
         "build",
         "-t",
-        "gcr.io/de2021-324520/trainingdbapi:latest",
+        "gcr.io/jads-de-2021/trainingdbapi:latest",
         "./lab3/trainingdb-cp"
        ]
    },
@@ -14,7 +14,7 @@
       "args": [
         "build",
         "-t",
-        "gcr.io/de2021-324520/trainingcpapi:latest",
+        "gcr.io/jads-de-2021/trainingcpapi:latest",
         "./lab3/training-cp"
        ]
    },
@@ -23,7 +23,7 @@
       "args": [
         "build",
         "-t",
-        "gcr.io/de2021-324520/predictioncpapi:latest",
+        "gcr.io/jads-de-2021/predictioncpapi:latest",
         "./lab3/prediction-cp"
        ]
    },
@@ -31,21 +31,21 @@
        "name": "gcr.io/cloud-builders/docker",
        "args": [
            "push",
-           "gcr.io/de2021-324520/trainingdbapi:latest"
+           "gcr.io/jads-de-2021/trainingdbapi:latest"
         ]
    },
    {
        "name": "gcr.io/cloud-builders/docker",
        "args": [
            "push",
-           "gcr.io/de2021-324520/trainingcpapi:latest"
+           "gcr.io/jads-de-2021/trainingcpapi:latest"
         ]
    },
    {
        "name": "gcr.io/cloud-builders/docker",
        "args": [
            "push",
-           "gcr.io/de2021-324520/predictioncpapi:latest"
+           "gcr.io/jads-de-2021/predictioncpapi:latest"
         ]
    }
    ]

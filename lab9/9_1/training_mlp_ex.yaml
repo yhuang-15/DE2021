@@ -1,0 +1,69 @@
+name: Train mlp
+description: train a MLP with default parameters
+inputs:
+- {name: features, type: typing.Dict}
+- {name: project_id, type: String}
+- {name: model_repo, type: String}
+outputs:
+- {name: mlmodel_metrics, type: Metrics}
+implementation:
+  container:
+    image: python:3.7
+    command:
+    - sh
+    - -c
+    - (PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location
+      'google-cloud-storage' 'pandas' 'keras' 'tensorflow' 'h5py' 'scikit-learn' ||
+      PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location
+      'google-cloud-storage' 'pandas' 'keras' 'tensorflow' 'h5py' 'scikit-learn' --user)
+      && "$0" "$@"
+    - sh
+    - -ec
+    - |
+      program_path=$(mktemp)
+      printf "%s" "$0" > "$program_path"
+      python3 -u "$program_path" "$@"
+    - "def train_mlp (features, project_id, model_repo):\n    '''train a MLP with\
+      \ default parameters'''\n    import pandas as pd\n    from google.cloud import\
+      \ storage\n    from keras.layers import Dense\n    from keras.models import\
+      \ Sequential\n    import json\n    import logging \n    import sys\n    import\
+      \ os\n\n    logging.basicConfig(stream=sys.stdout, level=logging.INFO)\n\n \
+      \   df = pd.DataFrame.from_dict(features)  \n\n    logging.info(df.columns)\n\
+      \n    # split into input (X) and output (Y) variables\n    X = df.loc[:, ['ntp','age',\
+      \ 'bmi', 'dbp', 'dpf', 'pgc', 'si', 'tsft']].values\n    Y = df.loc[:, ['class']].values\n\
+      \    # define model\n    model = Sequential()\n    model.add(Dense(12, input_dim=8,\
+      \ activation='relu'))\n    model.add(Dense(8, activation='relu'))\n    model.add(Dense(1,\
+      \ activation='sigmoid'))\n    # compile model\n    model.compile(loss='binary_crossentropy',\
+      \ optimizer='adam', metrics=['accuracy'])\n    # Fit the model\n    model.fit(X,\
+      \ Y, epochs=150, batch_size=10, verbose=0)\n    # evaluate the model\n    scores\
+      \ = model.evaluate(X, Y, verbose=0)\n    logging.info(model.metrics_names)\n\
+      \    metrics = {\n        \"accuracy:\": scores[1],\n        \"loss\": scores[0],\n\
+      \    }\n\n    # Save the model localy\n    local_file = '/tmp/local_model.h5'\n\
+      \    model.save(local_file)\n    # Save to GCS as model.h5\n    client = storage.Client(project=project_id)\n\
+      \    bucket = client.get_bucket(model_repo)\n    blob = bucket.blob('model_lab9_1_ex_1.h5')\n\
+      \        # Upload the locally saved model\n    blob.upload_from_filename(local_file)\n\
+      \        # Clean up\n    os.remove(local_file)\n    print(\"Saved the model\
+      \ to GCP bucket : \" + model_repo)\n\n    from collections import namedtuple\n\
+      \    fun_output = namedtuple('EvalResults_trainset',\n        ['mlmodel_metrics'])\n\
+      \n    logging.info(f'Evaluate on train set: {metrics}')\n    return fun_output(json.dumps(metrics))\n\
+      \nimport json\nimport argparse\n_parser = argparse.ArgumentParser(prog='Train\
+      \ mlp', description='train a MLP with default parameters')\n_parser.add_argument(\"\
+      --features\", dest=\"features\", type=json.loads, required=True, default=argparse.SUPPRESS)\n\
+      _parser.add_argument(\"--project-id\", dest=\"project_id\", type=str, required=True,\
+      \ default=argparse.SUPPRESS)\n_parser.add_argument(\"--model-repo\", dest=\"\
+      model_repo\", type=str, required=True, default=argparse.SUPPRESS)\n_parser.add_argument(\"\
+      ----output-paths\", dest=\"_output_paths\", type=str, nargs=1)\n_parsed_args\
+      \ = vars(_parser.parse_args())\n_output_files = _parsed_args.pop(\"_output_paths\"\
+      , [])\n\n_outputs = train_mlp(**_parsed_args)\n\n_output_serializers = [\n \
+      \   str,\n\n]\n\nimport os\nfor idx, output_file in enumerate(_output_files):\n\
+      \    try:\n        os.makedirs(os.path.dirname(output_file))\n    except OSError:\n\
+      \        pass\n    with open(output_file, 'w') as f:\n        f.write(_output_serializers[idx](_outputs[idx]))\n"
+    args:
+    - --features
+    - {inputValue: features}
+    - --project-id
+    - {inputValue: project_id}
+    - --model-repo
+    - {inputValue: model_repo}
+    - '----output-paths'
+    - {outputPath: mlmodel_metrics}

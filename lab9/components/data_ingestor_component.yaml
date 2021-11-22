@@ -11,7 +11,7 @@ outputs:
 
 implementation:
   container:
-    image: gcr.io/de2021-324520/dataingestor:latest
+    image: gcr.io/de2021-324520/dataingestor:latest    # replace de2021-324520 with your project_id
     # command is a list of strings (command-line arguments).
     command: [
       python3,

@@ -1,5 +1,7 @@
 import argparse
 import json
+import logging
+import sys
 
 import google.cloud.aiplatform as aip
 
@@ -8,6 +10,8 @@ def run_pipeline_job(name, pipeline_def, pipeline_root, parameter_dict):
     # Opening JSON file
     f = open(parameter_dict)
     data = json.load(f)
+    print(data)
+    logging.info(data)
     job = aip.PipelineJob(
         display_name=name,
         template_path=pipeline_def,
@@ -27,4 +31,5 @@ def parse_command_line_arguments():
 
 
 if __name__ == '__main__':
+    logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     run_pipeline_job(**parse_command_line_arguments())

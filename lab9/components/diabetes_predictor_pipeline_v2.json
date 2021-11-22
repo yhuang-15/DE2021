@@ -120,7 +120,7 @@
                   "componentInputParameter": "data_bucket"
                 },
                 "file_name": {
-                  "componentInputParameter": "testset_filename"
+                  "componentInputParameter": "trainset_filename"
                 },
                 "project_id": {
                   "componentInputParameter": "project_id"
@@ -176,7 +176,7 @@
           "project_id": {
             "type": "STRING"
           },
-          "testset_filename": {
+          "trainset_filename": {
             "type": "STRING"
           }
         }

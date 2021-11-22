@@ -18,7 +18,7 @@
         },
         "outputDefinitions": {
           "artifacts": {
-            "output_path": {
+            "feature_path": {
               "artifactType": {
                 "schemaTitle": "system.Artifact",
                 "schemaVersion": "0.0.1"
@@ -70,8 +70,8 @@
               "{{$.inputs.parameters['bucket']}}",
               "--file_name",
               "{{$.inputs.parameters['file_name']}}",
-              "--output_path",
-              "{{$.outputs.artifacts['output_path'].path}}"
+              "--feature_path",
+              "{{$.outputs.artifacts['feature_path'].path}}"
             ],
             "command": [
               "python3",
@@ -89,7 +89,7 @@
               "{{$.inputs.artifacts['feature_path'].path}}",
               "--model_repo",
               "{{$.inputs.parameters['model_repo']}}",
-              "--output_path",
+              "--metrics_path",
               "{{$.outputs.artifacts['metrics_path'].path}}"
             ],
             "command": [
@@ -145,7 +145,7 @@
               "artifacts": {
                 "feature_path": {
                   "taskOutputArtifact": {
-                    "outputArtifactKey": "output_path",
+                    "outputArtifactKey": "feature_path",
                     "producerTask": "download-data"
                   }
                 }

@@ -1,0 +1,7 @@
+{
+  "project_id": "de2021-324520",
+  "data_bucket": "dejads_input",
+  "trainset_filename": "training_set.csv",
+  "testset_filename": "prediction_set.csv",
+  "model_repo": "model_repo_de2021"
+}

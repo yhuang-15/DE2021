@@ -31,6 +31,19 @@
            "push",
            "gcr.io/de2021-324520/mlptrainer:latest"
         ]
+   },
+    {
+       "name": "gcr.io/de2021-324520/pipline_executor",
+       "args": [
+           "--name",
+           "diabetes-predictor-pipeline",
+		    "--pipeline_def",
+           "diabetes_predictor_pipeline_v2.json",
+		    "--pipeline_root",
+           "gs://dejads_temp",
+		   "--parameter_dict",
+           "parameters.json"
+        ]
    }
    ]
  }

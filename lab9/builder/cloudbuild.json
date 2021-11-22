@@ -1,0 +1,20 @@
+{
+ "steps": [
+  {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": [
+        "build",
+        "-t",
+        "gcr.io/de2021-324520/pipline_executor:latest",
+        "./lab9/builder/pipline_executor"
+       ]
+   },   
+   {
+       "name": "gcr.io/cloud-builders/docker",
+       "args": [
+           "push",
+           "gcr.io/de2021-324520/pipline_executor:latest"
+        ]
+   }
+   ]
+ }

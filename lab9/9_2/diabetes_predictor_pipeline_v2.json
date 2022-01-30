@@ -77,7 +77,7 @@
               "python3",
               "component.py"
             ],
-            "image": "gcr.io/de2021-324520/dataingestor:latest"
+            "image": "gcr.io/jads-de-2021/dataingestor92:latest"
           }
         },
         "exec-train-mlp": {
@@ -96,7 +96,7 @@
               "python3",
               "component.py"
             ],
-            "image": "gcr.io/de2021-324520/mlptrainer:latest"
+            "image": "gcr.io/jads-de-2021/mlptrainer92:latest"
           }
         }
       }
@@ -183,9 +183,9 @@
       }
     },
     "schemaVersion": "2.0.0",
-    "sdkVersion": "kfp-1.8.9"
+    "sdkVersion": "kfp-1.8.11"
   },
   "runtimeConfig": {
-    "gcsOutputDirectory": "gs://dejads_temp"
+    "gcsOutputDirectory": "gs://dejads_temp_yk"
   }
 }

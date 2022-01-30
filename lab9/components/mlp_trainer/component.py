@@ -9,7 +9,8 @@ from keras.layers import Dense
 from keras.models import Sequential
 from pathlib import Path
 
-def train_mlp(project_id, feature_path, model_repo, output_path):
+
+def train_mlp(project_id, feature_path, model_repo, metrics_path):
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
     df = pd.read_csv(feature_path, index_col=None, squeeze=True)
@@ -50,8 +51,8 @@ def train_mlp(project_id, feature_path, model_repo, output_path):
     print("Saved the model to GCP bucket : " + model_repo)
     # Creating the directory where the output file is created (the directory
     # may or may not exist).
-    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path, 'w') as outfile:
+    Path(metrics_path).parent.mkdir(parents=True, exist_ok=True)
+    with open(metrics_path, 'w') as outfile:
         json.dump(metrics, outfile)
 
 
@@ -60,7 +61,7 @@ def parse_command_line_arguments():
     parser.add_argument('--project_id', type=str, help="GCP project id")
     parser.add_argument('--feature_path', type=str, help="CSV file with features")
     parser.add_argument('--model_repo', type=str, help="Name of the model bucket")
-    parser.add_argument('--output_path', type=str, help="Name of the training data set file name")
+    parser.add_argument('--metrics_path', type=str, help="Name of the file to be used for saving eval metrics")
     args = parser.parse_args()
     return vars(args)
 

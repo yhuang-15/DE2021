@@ -11,7 +11,7 @@ outputs:
 
 implementation:
   container:
-    image: gcr.io/de2021-324520/mlptrainer:latest
+    image: gcr.io/de2021-324520/mlptrainer:latest  # replace de2021-324520 with your project_id
     command: [
       python3,
       component.py,
@@ -20,5 +20,5 @@ implementation:
       --project_id, {inputValue: project_id},
       --feature_path, {inputPath: feature_path},
       --model_repo, {inputValue: model_repo},
-      --output_path, {outputPath: metrics_path}
+      --metrics_path, {outputPath: metrics_path}
     ]

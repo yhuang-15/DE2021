@@ -6,15 +6,15 @@ from google.cloud import storage
 from pathlib import Path
 
 
-def download_data(project_id, bucket, file_name, output_path):
+def download_data(project_id, bucket, file_name, feature_path):
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     client = storage.Client(project=project_id)
     bucket = client.get_bucket(bucket)
     blob = bucket.blob(file_name)
     # Creating the directory where the output file is created (the directory
     # may or may not exist).
-    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
-    blob.download_to_filename(output_path)
+    Path(feature_path).parent.mkdir(parents=True, exist_ok=True)
+    blob.download_to_filename(feature_path)
     logging.info('Downloaded Data!')
 
 
@@ -23,7 +23,7 @@ def parse_command_line_arguments():
     parser.add_argument('--project_id', type=str, help="GCP project id")
     parser.add_argument('--bucket', type=str, help="Name of the data bucket")
     parser.add_argument('--file_name', type=str, help="Name of the training data set file name")
-    parser.add_argument('--output_path', type=str, help="Name of the training data set file name")
+    parser.add_argument('--feature_path', type=str, help="Name of the file to be used to store features")
     args = parser.parse_args()
     return vars(args)
 

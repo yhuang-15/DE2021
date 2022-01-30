@@ -7,11 +7,11 @@ inputs:
   - {name: file_name, type: String}
 
 outputs:
-  - {name: output_path, type: Data}
+  - {name: feature_path, type: Data}
 
 implementation:
   container:
-    image: gcr.io/de2021-324520/dataingestor:latest
+    image: gcr.io/de2021-324520/dataingestor:latest    # replace de2021-324520 with your project_id
     # command is a list of strings (command-line arguments).
     command: [
       python3,
@@ -22,5 +22,5 @@ implementation:
       --project_id, {inputValue: project_id},
       --bucket, {inputValue: bucket},
       --file_name, {inputValue: file_name},
-      --output_path, {outputPath: output_path}
+      --feature_path, {outputPath: feature_path}
     ]

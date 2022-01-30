@@ -43,7 +43,7 @@ def train_mlp(project_id, feature_path, model_repo, metrics_path):
     # Save to GCS as model.h5
     client = storage.Client(project=project_id)
     bucket = client.get_bucket(model_repo)
-    blob = bucket.blob('model.h5')
+    blob = bucket.blob('model_9_2.h5')
     # Upload the locally saved model
     blob.upload_from_filename(local_file)
     # Clean up

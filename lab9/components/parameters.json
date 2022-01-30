@@ -1,6 +1,6 @@
 {
-  "project_id": "de2021-324520",
-  "data_bucket": "dejads_input",
+  "project_id": "jads-de-2021",
+  "data_bucket": "dejads_input_yk",
   "trainset_filename": "training_set.csv",
-  "model_repo": "model_repo_de2021"
+  "model_repo": "models-de-lab9"
 }
